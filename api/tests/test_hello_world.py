@@ -7,4 +7,4 @@ def test_hello_world():
     runner = CliRunner()
     result = runner.invoke(hello_world)
     assert result.exit_code == 0
-    assert result.output.strip() == "Hello, World! Welcome to vidyabot CLI."
+    assert result.output.strip() == "Hello, World! Welcome to vidyabot CLI v2."
