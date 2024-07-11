@@ -1,0 +1,92 @@
+# Development Guide for vidyabot
+
+## Project Overview
+
+vidyabot is an AI-powered knowledge assistant that combines ancient wisdom with modern technology. The project is structured as a monorepo, containing a Python API, a command-line interface (CLI), and potential future components like a web frontend and mobile application.
+
+## Project Structure
+
+```
+vidyabot/
+├── api/
+│   ├── __init__.py
+│   ├── src/
+│   │   └── cli/
+│   │       └── hello_world.py
+│   └── tests/
+│       └── test_hello_world.py
+├── scripts/
+│   └── check.py
+├── pyproject.toml
+├── README.md
+└── release.py
+```
+
+## Development Workflow
+
+1. Make code changes
+2. Run formatting and linting checks
+3. Run tests
+4. Commit changes using conventional commit format
+5. Push changes to GitHub
+6. Run the release process when ready for a new version
+
+## Poetry Commands Cheat Sheet
+
+Here's a quick reference for common Poetry commands used in this project:
+
+### Environment Management
+- Initialize a new project: `poetry init`
+- Install dependencies: `poetry install`
+- Add a new dependency: `poetry add <package_name>`
+- Add a dev dependency: `poetry add --dev <package_name>`
+- Update dependencies: `poetry update`
+- Show installed packages: `poetry show`
+- Activate virtual environment: `poetry shell`
+
+### Running Commands
+- Run a command in the virtual environment: `poetry run <command>`
+- Run project-specific script: `poetry run check`
+
+### Testing and Code Quality
+- Run tests: `poetry run pytest`
+- Run tests with coverage: `poetry run pytest --cov`
+- Format code with Black: `poetry run black .`
+- Sort imports with isort: `poetry run isort .`
+- Lint code with flake8: `poetry run flake8`
+
+### Project Management
+- Build the project: `poetry build`
+- Publish the project: `poetry publish`
+- Show project information: `poetry about`
+- Check validity of pyproject.toml: `poetry check`
+- Export dependencies to requirements.txt: `poetry export -f requirements.txt --output requirements.txt`
+
+### Version Management
+- Show current version: `poetry version`
+- Bump version: `poetry version <rule>` (where rule is major, minor, patch, etc.)
+
+### Custom Commands
+- Run all checks: `poetry run check`
+- Perform a release: `poetry run python release.py`
+
+## Release Process
+
+1. Ensure all changes are committed and pushed
+2. Run `poetry run python release.py`
+3. The script will:
+   - Determine the next version based on commit history
+   - Update the version in the code
+   - Generate or update the CHANGELOG.md
+   - Create a new git tag
+   - Push changes and tags to GitHub
+
+## Best Practices
+
+1. Follow the conventional commits specification for commit messages
+2. Run the check script (`poetry run check`) before committing to ensure code quality
+3. Keep the `pyproject.toml` file up to date with all dependencies
+4. Regularly update dependencies to keep the project secure and up-to-date
+5. Write tests for new functionality and ensure all tests pass before committing
+
+Remember to refer to this guide when working on the project, and keep it updated as the project evolves.
