@@ -31,6 +31,60 @@ vidyabot/
 5. Push changes to GitHub
 6. Run the release process when ready for a new version
 
+## Feature Development Workflow
+
+1. Create a GitHub Issue:
+   - Go to the GitHub repository and create a new issue describing the feature.
+
+2. Create a New Branch:
+   ```
+   git checkout main
+   git pull origin main
+   git checkout -b feature/issue_number-brief-description
+   ```
+
+3. Develop the Feature:
+   - Make your changes, committing regularly with conventional commit messages.
+
+4. Keep Your Branch Updated:
+   ```
+   git fetch origin
+   git merge origin/main
+   ```
+   or
+   ```
+   git rebase origin/main
+   ```
+
+5. Run Tests and Checks:
+   ```
+   poetry run check
+   ```
+
+6. Push Your Branch and Create a Pull Request:
+   ```
+   git push origin feature/issue_number-brief-description
+   ```
+   Then, go to GitHub and create a new Pull Request.
+
+7. Code Review:
+   - Request reviews from team members or review it yourself.
+   - Address any feedback by making new commits on your branch.
+
+8. Merge the Pull Request:
+   - Once approved and all checks pass, merge the PR on GitHub.
+   - Use "Squash and merge" to keep the main branch history clean.
+
+9. Delete the Branch:
+   - After merging, delete the feature branch both on GitHub and locally:
+     ```
+     git checkout main
+     git pull origin main
+     git branch -d feature/issue_number-brief-description
+     ```
+
+Remember to always create a new branch for each feature or significant change. This keeps your work organized and makes it easier to manage multiple features in development simultaneously.
+
 ## Poetry Commands Cheat Sheet
 
 Here's a quick reference for common Poetry commands used in this project:
