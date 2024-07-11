@@ -2,7 +2,7 @@
 name = "vidyabot"
 version = "0.1.0"
 description = "An AI-powered knowledge assistant combining ancient wisdom with modern technology"
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Matthew Pazaryna <mpazbot@gmail.com>"]
 readme = "README.md"
 packages = [{include = "vidyabot"}]
 
