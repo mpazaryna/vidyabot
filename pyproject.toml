@@ -51,3 +51,4 @@ build_command = "poetry build"
 dist_path = "dist/"
 upload_to_pypi = false
 upload_to_release = true
+repository_url = "https://github.com/mpazaryna/vidyabot.git"
