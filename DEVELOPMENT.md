@@ -89,4 +89,42 @@ Here's a quick reference for common Poetry commands used in this project:
 4. Regularly update dependencies to keep the project secure and up-to-date
 5. Write tests for new functionality and ensure all tests pass before committing
 
-Remember to refer to this guide when working on the project, and keep it updated as the project evolves.
+## Dependency Management Workflow
+
+1. Check for outdated packages:
+   ```
+   poetry show --outdated
+   ```
+
+2. Update all dependencies:
+   ```
+   poetry update
+   ```
+   Or update specific packages:
+   ```
+   poetry update package1 package2
+   ```
+
+3. Run tests and checks:
+   ```
+   poetry run check
+   poetry run pytest
+   ```
+
+4. If everything passes, commit the changes:
+   ```
+   git add poetry.lock pyproject.toml
+   git commit -m "build(deps): update dependencies
+
+   - Update [list major package updates]
+   - Run full test suite to ensure compatibility
+   
+   This commit keeps the project dependencies up-to-date and secure."
+   ```
+
+5. Push changes and monitor CI/CD pipeline:
+   ```
+   git push origin main
+   ```
+
+Remember to review changelogs for major updates and be cautious with breaking changes. Always test thoroughly after updating dependencies.
