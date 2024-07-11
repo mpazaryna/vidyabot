@@ -2,6 +2,65 @@
 
 
 
+## v0.4.0 (2024-07-11)
+
+### Build
+
+* build: synchronize version in __init__.py with latest release
+
+- Manually update __version__ to 0.3.0 to match the latest release
+- Ensure consistency between git tags and package version ([`a6b8604`](https://github.com/mpazaryna/vidyabot/commit/a6b8604253d6b6194594e46d545ab3ca4b37d830))
+
+* build: implement dynamic versioning and clean up pyproject.toml
+
+- Add poetry-dynamic-versioning for consistent version management
+- Resolve conflicts in build-system configuration
+- Clean up and organize pyproject.toml ([`3e19a68`](https://github.com/mpazaryna/vidyabot/commit/3e19a686d3960f4a49b818743e189941c6e2b2bc))
+
+### Chore
+
+* chore: clean up project structure
+
+- Remove unnecessary __init__.py from root
+- Ensure correct __init__.py in api/ directory ([`d5b2cf0`](https://github.com/mpazaryna/vidyabot/commit/d5b2cf0e781099904acb20b3752f0ccae505c205))
+
+* chore: cleanup after command line scripts. ([`99c1cd5`](https://github.com/mpazaryna/vidyabot/commit/99c1cd59048e93353b0deec24ab22e4e81142966))
+
+### Feature
+
+* feat(cli): add thank you message to CLI output
+
+- Include an additional line thanking the user
+- Enhance user experience with friendly message
+
+This commit adds a small but meaningful improvement to the CLI interaction. ([`0cafaf6`](https://github.com/mpazaryna/vidyabot/commit/0cafaf6cbe24bdae7eed129d40f165f3ec44c582))
+
+### Style
+
+* style(cli): fix line length in hello world function
+
+- Split long line in hello_world function to comply with PEP 8
+- Maintain functionality while improving code style
+
+This commit ensures the CLI code adheres to style guidelines. ([`949fc36`](https://github.com/mpazaryna/vidyabot/commit/949fc362e93e03dcd2debebde6c6893052b666ae))
+
+* style(cli): fix line length in hello world function
+
+- Split long line in hello_world function to comply with PEP 8
+- Maintain functionality while improving code style
+
+This commit ensures the CLI code adheres to style guidelines. ([`e39b158`](https://github.com/mpazaryna/vidyabot/commit/e39b158bb2c783f39888533f07a679cdc6c390ab))
+
+### Test
+
+* test(cli): update hello world test to match new CLI output
+
+- Adjust test assertion to include the new thank you message
+- Ensure test accurately reflects current CLI behavior
+
+This commit aligns the test with the updated CLI functionality. ([`b36de6a`](https://github.com/mpazaryna/vidyabot/commit/b36de6a4ad493fd477fdc35ffd8880aebf0f7f6f))
+
+
 ## v0.3.0 (2024-07-11)
 
 ### Chore
