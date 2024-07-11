@@ -2,7 +2,30 @@
 
 
 
-## v0.1.0 (2024-07-11)
+## v0.3.0 (2024-07-11)
+
+### Chore
+
+* chore(release): prepare for initial release
+
+- build(config): update semantic-release configuration in pyproject.toml
+- chore(version): set initial version to 0.1.0 in api/__init__.py
+
+This commit finalizes the configuration for the initial release and sets the starting version. ([`d780af8`](https://github.com/mpazaryna/vidyabot/commit/d780af8ce06e6e3864b8ffce6ca789a25beed34f))
+
+* chore(release): bump version to 0.2.0 ([`c87f6db`](https://github.com/mpazaryna/vidyabot/commit/c87f6dbb5916fb73720d1f68c627cee5688fa0cb))
+
+### Feature
+
+* feat(cli): enhance hello world message
+
+- Update hello world message to include &#39;v2&#39;
+- Update corresponding test to match new message
+
+This commit improves the hello world functionality with a version indicator. ([`dcf3e8e`](https://github.com/mpazaryna/vidyabot/commit/dcf3e8e615a8629e801e6c4c4ee935521803d33d))
+
+
+## v0.2.0 (2024-07-11)
 
 ### Build
 
