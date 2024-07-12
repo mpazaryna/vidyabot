@@ -2,6 +2,19 @@
 
 
 
+## v0.7.0 (2024-07-12)
+
+### Chore
+
+* chore: align version references and update semantic-release config ([`8b4406e`](https://github.com/mpazaryna/vidyabot/commit/8b4406e7a456599152990c244dcbc846238fb0ed))
+
+### Feature
+
+* feat: add test feature to verify semantic-release
+
+This commit is to verify that semantic-release creates a new minor version. ([`e278a30`](https://github.com/mpazaryna/vidyabot/commit/e278a30172b37ecbf221452bc35fa7326e36d21f))
+
+
 ## v0.6.1 (2024-07-12)
 
 
