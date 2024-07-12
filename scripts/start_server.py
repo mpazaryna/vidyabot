@@ -1,25 +1,27 @@
 # File: scripts/start_server.py
 
-import argparse
+import logging
 
 import uvicorn
 
-
-def main():
-    """Start the FastAPI server."""
-    parser = argparse.ArgumentParser(description="Start the FastAPI server.")
-    parser.add_argument(
-        "--env",
-        choices=["dev", "prod"],
-        default="dev",
-        help="Specify the environment (dev or prod)",
-    )
-    args = parser.parse_args()
-
-    uvicorn.run(
-        "api.src.main:app", host="0.0.0.0", port=8000, reload=(args.env == "dev")
-    )
-
+from api.src.main import app
 
 if __name__ == "__main__":
-    main()
+    # Configure logging
+    logging.basicConfig(
+        filename="server.log",
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+
+    # Configure Uvicorn to use the root logger
+    uvicorn_logger = logging.getLogger("uvicorn")
+    uvicorn_logger.handlers = logging.getLogger().handlers
+
+    # Run the server
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8000,
+        log_config=None,  # This disables Uvicorn's default logging configuration
+    )
