@@ -24,24 +24,20 @@ def get_current_version():
 
 
 def main():
-    # Check current version
     current_version = get_current_version()
     print(f"Current version: {current_version}")
 
-    # Run semantic-release
     print("Running semantic-release...")
-    result = run_command("semantic-release version")
+    result = run_command("semantic-release --verbose version")
     if result is None:
         print("Failed to run semantic-release. Exiting.")
         sys.exit(1)
     print(result)
 
-    # Check new version
     new_version = get_current_version()
     print(f"New version: {new_version}")
 
     if new_version != current_version:
-        # Push changes and tags
         print("Pushing changes and tags...")
         push_result = run_command("git push --follow-tags origin main")
         print(push_result)
