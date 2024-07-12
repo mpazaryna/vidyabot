@@ -2,6 +2,15 @@
 
 
 
+## v0.5.3 (2024-07-12)
+
+### Fix
+
+* fix: force version update for testing
+
+This commit is to test if semantic-release correctly updates the version. ([`e6836a5`](https://github.com/mpazaryna/vidyabot/commit/e6836a5a5c6f502cad7e62014f9211d0601a4b4e))
+
+
 ## v0.5.2 (2024-07-12)
 
 ### Chore
