@@ -1,7 +1,6 @@
 # File: scripts/manage_server.py
 
 import os
-import signal
 import subprocess
 import sys
 
@@ -34,7 +33,8 @@ def start_server():
     with open(PID_FILE, "w") as f:
         f.write(str(process.pid))
     print(
-        f"Server started with PID {process.pid}. Logs are being written to {LOG_FILE}"
+        f"Server started with PID {process.pid}. "
+        f"Logs are being written to {LOG_FILE}"
     )
 
 
@@ -53,7 +53,8 @@ def stop_server():
             print(f"Server with PID {process.pid} stopped.")
         except psutil.TimeoutExpired:
             print(
-                f"Server with PID {process.pid} didn't stop gracefully. Forcing shutdown."
+                f"Server with PID {process.pid} didn't stop gracefully. "
+                "Forcing shutdown."
             )
             process.kill()
     except psutil.NoSuchProcess:

@@ -34,9 +34,3 @@ async def read_root():
         dict: A welcome message.
     """
     return {"message": "Welcome to the User API"}
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)

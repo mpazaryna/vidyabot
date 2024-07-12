@@ -49,10 +49,6 @@ include = '\.pyi?$'
 profile = "black"
 multi_line_output = 3
 
-[tool.flake8]
-max-line-length = 88
-extend-ignore = "E203"
-
 [tool.semantic_release]
 version_variable = ["api/__init__.py:__version__"]
 branch = "main"
@@ -68,3 +64,10 @@ check = "scripts.check:main"
 start-server = "scripts.start_server:main"
 start-server-prod = "scripts.start_server:main --env prod"
 manage-server = "scripts.manage_server:main"
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", "docs/source/conf.py", "old", "build", "dist"]
+ignore = ["E203", "E266", "E501", "W503"]
+max-complexity = 18
+select = ["B", "C", "E", "F", "W", "T4", "B9"]
