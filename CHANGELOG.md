@@ -2,6 +2,15 @@
 
 
 
+## v0.6.0 (2024-07-12)
+
+### Feature
+
+* feat: add new functionality to test semantic-release
+
+This commit is to test if semantic-release correctly updates the version. ([`a57a46a`](https://github.com/mpazaryna/vidyabot/commit/a57a46aefdee45eb293935bd4b2a2679f2ea2ca3))
+
+
 ## v0.5.3 (2024-07-12)
 
 ### Fix
