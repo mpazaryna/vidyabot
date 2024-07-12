@@ -58,6 +58,11 @@ dist_path = "dist/"
 upload_to_pypi = false
 upload_to_release = true
 repository_url = "https://github.com/mpazaryna/vidyabot.git"
+major_on_zero = false
+
+[tool.semantic_release.commit_parser_options]
+minor_types = ["feat"]
+patch_types = ["fix", "perf", "chore"]
 
 [tool.poetry.scripts]
 check = "scripts.check:main"
