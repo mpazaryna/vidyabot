@@ -1,1 +1,6 @@
-__version__ = "0.5.1"
+from importlib.metadata import version
+
+try:
+    __version__ = version("vidyabot")
+except ImportError:
+    __version__ = "unknown"
