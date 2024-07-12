@@ -76,6 +76,10 @@ The AI assistant, while instrumental in the project's conception and initial set
 
 [Add license information here]
 
+## Version History
+
+This project uses semantic versioning. As of July 2024, we performed a manual synchronization to align the internal `__version__` with the GitHub releases. From this point forward, versioning is managed automatically through our release process.
+
 ## Contact
 
 [Add your contact information here]
