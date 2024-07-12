@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vidyabot"
-version = "0.6.0"
+version = "0.6.1"
 description = "An AI-powered knowledge assistant combining ancient wisdom with modern technology"
 authors = ["Matthew Pazaryna <mpazbot@gmail.com>"]
 readme = "README.md"
