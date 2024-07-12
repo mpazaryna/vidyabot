@@ -1,51 +1,38 @@
-import subprocess
-import sys
+import os
 
 
-def run_command(command):
-    print(f"Executing: {command}")
-    full_command = f"poetry run {command}"
-    process = subprocess.Popen(
-        full_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
-    )
-    output, error = process.communicate()
-    if process.returncode != 0:
-        print(f"Error: {error.decode('utf-8')}")
-        return None
-    return output.decode("utf-8").strip()
-
-
-def get_current_version():
-    with open("api/__init__.py", "r") as f:
-        for line in f:
-            if line.startswith("__version__"):
-                return line.split("=")[1].strip().strip("\"'")
-    return None
+def print_file_content(filepath):
+    print(f"Content of {filepath}:")
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
+            print(f.read())
+    else:
+        print(f"File {filepath} does not exist.")
 
 
 def main():
     current_version = get_current_version()
     print(f"Current version: {current_version}")
 
+    print_file_content("api/__init__.py")
+    print_file_content("pyproject.toml")
+
     print("Running semantic-release...")
-    result = run_command("semantic-release --verbose version")
+    result = run_command("semantic-release --verbose version --dry-run")
     if result is None:
         print("Failed to run semantic-release. Exiting.")
         sys.exit(1)
     print(result)
 
+    print_file_content("api/__init__.py")
+    print_file_content("pyproject.toml")
+
     new_version = get_current_version()
     print(f"New version: {new_version}")
 
     if new_version != current_version:
-        print("Pushing changes and tags...")
-        push_result = run_command("git push --follow-tags origin main")
-        print(push_result)
+        print("Version would be updated (dry run).")
     else:
-        print("No new version created. Skipping push.")
+        print("No new version would be created (dry run).")
 
-    print("Release process completed!")
-
-
-if __name__ == "__main__":
-    main()
+    print("Release process simulation completed!")
