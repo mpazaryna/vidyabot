@@ -4,8 +4,9 @@ import sys
 
 def run_command(command):
     print(f"Executing: {command}")
+    full_command = f"poetry run {command}"
     process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
+        full_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
     output, error = process.communicate()
     if process.returncode != 0:
