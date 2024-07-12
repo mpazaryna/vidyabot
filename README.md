@@ -143,7 +143,7 @@ We use `python-semantic-release` to automatically generate changelogs and manage
 
 5. To perform a release, run:
    ```
-   python release.py
+   poetry run semantic-release --verbose version
    ```
 
 This script will:
