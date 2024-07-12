@@ -2,6 +2,121 @@
 
 
 
+## v0.5.0 (2024-07-12)
+
+### Documentation
+
+* docs: Add FUTURE_IMPROVEMENTS.md for tracking planned enhancements ([`353da2c`](https://github.com/mpazaryna/vidyabot/commit/353da2c26c6aaec14f3895c895a041e318dec0ad))
+
+* docs: add feature development workflow to guide
+
+- Include step-by-step process for feature branch development
+- Detail GitHub Issues, branching, and Pull Request procedures
+- Emphasize code review and clean merge practices
+
+This commit enhances project documentation with clear guidelines for feature development using Git and GitHub. ([`fb68d75`](https://github.com/mpazaryna/vidyabot/commit/fb68d75b12915243a80e28be2b66ef8b6ecc608d))
+
+* docs: add dependency management workflow to development guide
+
+- Include step-by-step process for updating dependencies
+- Add best practices for maintaining up-to-date and secure dependencies
+
+This commit enhances project documentation with clear guidelines for dependency management. ([`8c2226a`](https://github.com/mpazaryna/vidyabot/commit/8c2226af22abce003384b597e0b4fb78d39c7c71))
+
+* docs: add development guide and Poetry cheat sheet
+
+- Create DEVELOPMENT.md with project overview and structure
+- Include Poetry commands cheat sheet for quick reference
+- Document development workflow and best practices
+
+This commit enhances project documentation for easier onboarding and reference. ([`13bb64c`](https://github.com/mpazaryna/vidyabot/commit/13bb64c38546e1546510b77604b9ea5cead0051f))
+
+### Feature
+
+* feat(server): Implement robust server management system
+
+- Create scripts/manage_server.py for server lifecycle management
+  - Implement start, stop, and restart functionality
+  - Add process discovery and management using psutil
+  - Handle edge cases like stale PID files and port conflicts
+
+- Create scripts/run_server.py for FastAPI application execution
+  - Configure Uvicorn to run the FastAPI app
+  - Implement logging to server.log with rotation
+
+- Update api/src/main.py to work with the new server management system
+  - Ensure compatibility with Uvicorn runner
+
+- Improve error handling and logging across all components
+  - Add detailed error messages and logging for better debugging
+
+- Resolve issues with process detachment and port conflicts
+  - Ensure clean process termination and port release
+
+This commit provides a robust server management system, allowing for
+easy starting, stopping, and restarting of the FastAPI server. It
+addresses previous issues with process management, logging, and port
+conflicts, providing a more stable and maintainable server infrastructure. ([`1d1e2f6`](https://github.com/mpazaryna/vidyabot/commit/1d1e2f6cf1c15871541f82915376bb1117816039))
+
+* feat(api): Implement FastAPI server and add tests
+
+- Add FastAPI server implementation in api/src/main.py
+  - Create root endpoint (/)
+  - Implement /users endpoint to fetch user data
+- Create unit tests for FastAPI endpoints in api/tests/test_main.py
+- Update pyproject.toml:
+  - Add FastAPI and Uvicorn as dependencies
+  - Include start-server and start-server-prod scripts
+- Implement server management script in scripts/manage_server.py
+- Add graceful shutdown handling to scripts/start_server.py
+
+This commit sets up the basic FastAPI server structure, adds
+initial endpoints, implements unit tests, and provides scripts
+for server management. It maintains the existing dynamic versioning
+configuration. ([`e9a1ea5`](https://github.com/mpazaryna/vidyabot/commit/e9a1ea527a1d456aaea4b05820963f4308ba82d6))
+
+* feat(api): Implement user data retrieval and improve project structure
+
+Add get_user_data() function and related improvements:
+
+Create get_user_data() in api/src/data/user_data.py
+
+- Add tests in api/tests/test_user_data.py
+- Create static_data directory for JSON storage
+- Update .gitignore (exclude build artifacts, include poetry.lock)
+- Add type hints and comprehensive docstrings
+- Implement test for docstring presence
+
+This commit sets up user data retrieval from a local JSON file with
+the intention of future refactoring for external data sources. It also
+improves the project structure and documentation. ([`df6f626`](https://github.com/mpazaryna/vidyabot/commit/df6f626b78aa96aacbc860cc8ea87df157204dc1))
+
+### Fix
+
+* fix(tests): Resolve test failures and improve error handling
+
+- Update main.py to better handle exceptions from get_user_data()
+- Modify test_main.py to use json.dumps for mock data, ensuring proper JSON formatting
+- Update test_user_data.py to use json.dumps for mock data
+- Improve error handling and exception raising in user_data.py
+- Ensure consistent behavior across the main application and tests
+
+This commit resolves issues with JSON parsing in tests, improves error
+handling in the main FastAPI application, and ensures that the get_user_data()
+function correctly handles potential exceptions. All tests are now passing,
+providing a stable foundation for further development. ([`0297ee4`](https://github.com/mpazaryna/vidyabot/commit/0297ee4a4c73ad6a1e5b5164e2588bf6c892594a))
+
+### Unknown
+
+* Merge pull request #4 from mpazaryna/3-title-implement-fastapi-server-with-flexible-start-up-scripts
+
+3 title implement fastapi server with flexible start up scripts ([`050147b`](https://github.com/mpazaryna/vidyabot/commit/050147b65b6dbfcd81be9ef68214d7f97928d74e))
+
+* Merge pull request #2 from mpazaryna/1-implement-function-to-read-data-from-local-file
+
+feat(api): Implement user data retrieval and improve project structure #1 ([`67a0492`](https://github.com/mpazaryna/vidyabot/commit/67a0492cd42e7edc2ebbd5a68edd5ca49107e59d))
+
+
 ## v0.4.0 (2024-07-11)
 
 ### Build
