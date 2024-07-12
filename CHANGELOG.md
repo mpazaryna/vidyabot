@@ -2,6 +2,21 @@
 
 
 
+## v0.5.2 (2024-07-12)
+
+### Chore
+
+* chore: update release script to use Poetry for command execution
+
+- Modify run_command function to execute semantic-release within Poetry environment
+- Ensure consistency with project&#39;s dependency management
+- Improve isolation and version control of the release process ([`d475a1b`](https://github.com/mpazaryna/vidyabot/commit/d475a1b84d64d52cbe4043b3a2f09f853970f1e1))
+
+### Fix
+
+* fix: manually bump version to 0.5.1 ([`ea3a02a`](https://github.com/mpazaryna/vidyabot/commit/ea3a02a6f79869b4d9b0955692086297877bd1f5))
+
+
 ## v0.5.1 (2024-07-12)
 
 ### Chore
