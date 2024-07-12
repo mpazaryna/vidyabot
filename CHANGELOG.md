@@ -2,6 +2,33 @@
 
 
 
+## v0.5.1 (2024-07-12)
+
+### Chore
+
+* chore: add version history note to README
+
+- Documents recent manual version synchronization
+- Provides context for future contributors about the versioning process ([`9ff39b0`](https://github.com/mpazaryna/vidyabot/commit/9ff39b04ec77e6be03838ae5367f318df7d0d769))
+
+* chore: update __version__ to 0.5.0 to align with latest release
+
+- Syncs internal version number with the latest GitHub release tag
+- Ensures consistency between codebase and published releases ([`856218b`](https://github.com/mpazaryna/vidyabot/commit/856218b6edd48562db4f4b1c4c3e35a8478902d6))
+
+### Fix
+
+* fix: resolve version sync issue
+
+- Adjust semantic-release configuration to recognize chore commits
+- Ensure proper version bumping for maintenance tasks ([`150a28b`](https://github.com/mpazaryna/vidyabot/commit/150a28ba9c056815126e6cfa9bd9206142adaaa3))
+
+* fix: resolve version sync issue
+
+- Adjust semantic-release configuration to recognize chore commits
+- Ensure proper version bumping for maintenance tasks ([`6611366`](https://github.com/mpazaryna/vidyabot/commit/6611366fe8838c703aad0f7e2cabd54a78000893))
+
+
 ## v0.5.0 (2024-07-12)
 
 ### Documentation
