@@ -2,6 +2,13 @@
 
 
 
+## v0.8.0 (2024-07-12)
+
+### Feature
+
+* feat: add test feature to verify semantic-release ([`c8110b2`](https://github.com/mpazaryna/vidyabot/commit/c8110b263cd661a028fb9b5b12c89cb36d9f4246))
+
+
 ## v0.7.0 (2024-07-12)
 
 ### Chore
