@@ -1,22 +1,19 @@
 import argparse
-import configparser
 import os
 import subprocess
 import sys
-from importlib.metadata import PackageNotFoundError, version
+
+import toml
 
 
-def get_current_version():
+def get_version_from_toml():
     try:
-        return version("vidyabot")
-    except PackageNotFoundError:
-        # If the package is not installed, fall back to reading from pyproject.toml
-        try:
-            config = configparser.ConfigParser()
-            config.read("pyproject.toml")
-            return config["tool.poetry"]["version"].strip('"')
-        except (configparser.Error, KeyError):
-            raise ValueError("Version not found in pyproject.toml or package metadata")
+        with open("pyproject.toml", "r") as f:
+            pyproject_data = toml.load(f)
+            return pyproject_data["tool"]["poetry"]["version"]
+    except (FileNotFoundError, KeyError) as e:
+        print(f"Error reading version from pyproject.toml: {e}")
+        return None
 
 
 def run_command(command):
@@ -37,53 +34,54 @@ def print_file_content(filepath):
 
 
 def main(dry_run=True):
-    try:
-        current_version = get_current_version()
-        print(f"Current version: {current_version}")
-    except ValueError as e:
-        print(f"Error: {e}")
+    current_version = get_version_from_toml()
+    if current_version is None:
+        print("Failed to get current version. Exiting.")
         sys.exit(1)
+    print(f"Current version from pyproject.toml: {current_version}")
 
-    print_file_content("api/__init__.py")
     print_file_content("pyproject.toml")
 
     print("Running semantic-release...")
     if dry_run:
         print("Dry run: simulating semantic-release execution")
-        result = "Dry run: Version would be determined based on commits"
-        error = None
+        result, error = "Dry run: Version would be determined based on commits", ""
     else:
-        command = "semantic-release version"
+        command = "semantic-release version --verbose"
         result, error = run_command(command)
 
-    print("Output:", result)
-    print("Error output:", error)
+    print("semantic-release output:", result)
+    print("semantic-release error output:", error)
 
     combined_output = result + "\n" + error
+    new_version = None
     if "The next version is:" in combined_output:
         print("semantic-release ran successfully.")
-        # Extract the new version from the output
         for line in combined_output.split("\n"):
             if "The next version is:" in line:
                 new_version = line.split(":")[1].strip().rstrip("! 🚀")
-                print(f"New version detected: {new_version}")
+                print(f"New version detected by semantic-release: {new_version}")
+                break
     else:
-        print("Failed to run semantic-release. Exiting.")
-        sys.exit(1)
+        print("semantic-release did not report a new version.")
 
-    print_file_content("api/__init__.py")
+    print("\nChecking pyproject.toml after semantic-release:")
     print_file_content("pyproject.toml")
 
-    try:
-        package_version = get_current_version()
-        print(f"Package version after release: {package_version}")
+    updated_version = get_version_from_toml()
+    print(f"Updated version from pyproject.toml: {updated_version}")
 
-        if package_version != current_version:
-            print("Version was updated.")
-        else:
-            print("No new version was created.")
-    except ValueError as e:
-        print(f"Error: {e}")
+    if updated_version != current_version:
+        print(
+            f"Version in pyproject.toml was updated from {current_version} to {updated_version}."
+        )
+    else:
+        print("Version in pyproject.toml was not changed.")
+
+    if new_version and new_version != updated_version:
+        print(
+            f"Warning: semantic-release reported version {new_version}, but pyproject.toml shows {updated_version}."
+        )
 
     print("Release process completed!")
 
