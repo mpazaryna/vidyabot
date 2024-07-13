@@ -160,4 +160,7 @@ This script will:
 
 Remember to follow the conventional commit format in your day-to-day development to ensure accurate changelog generation.
 
-[Rest of the README remains unchanged]
+
+## Error Handling
+
+The vidyabot CLI now includes basic error handling. Unexpected errors are caught, reported, and the application will exit with an appropriate status code.
