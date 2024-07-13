@@ -1,6 +1,22 @@
 # CHANGELOG
 
+## v0.9.1 (2024-07-13)
 
+### Fix
+
+* fix: update semantic-release and improve release script compatibility
+
+- additional changes suggested by claude.ai ([`089345a`](https://github.com/mpazaryna/vidyabot/commit/089345a298aba66451f0afcd61b272acb8b5db91))
+
+* fix: update script to force a release
+
+- another cruft function to retest semantic release ([`0f24a48`](https://github.com/mpazaryna/vidyabot/commit/0f24a484a089d9fb000f13f0036bd0dd50cef561))
+
+* fix: improve version change detection in release script
+
+This commit updates the release script to better detect and report
+version changes made by semantic-release. It now checks both the
+semantic-release output and the pyproject.toml file for changes.&#34; ([`9cd7c0d`](https://github.com/mpazaryna/vidyabot/commit/9cd7c0d4d73fca99db606f1295082415a36bbd40))
 
 ## v0.9.0 (2024-07-13)
 
@@ -40,7 +56,6 @@ The added function doesn&#39;t affect any actual functionality. ([`bf71032`](htt
 - Added more detailed semantic-release output
 - Improved version change detection and reporting ([`70f433c`](https://github.com/mpazaryna/vidyabot/commit/70f433cc57628cc146c08d060eea5460faaec31d))
 
-
 ## v0.8.3 (2024-07-13)
 
 ### Fix
@@ -52,7 +67,6 @@ The added function doesn&#39;t affect any actual functionality. ([`bf71032`](htt
 - Improved reporting of semantic-release output and errors
 - Added check for package version update after release ([`faab93a`](https://github.com/mpazaryna/vidyabot/commit/faab93ac9be78f79d9a3dabd0479fe8fe5709825))
 
-
 ## v0.8.2 (2024-07-13)
 
 ### Fix
@@ -62,7 +76,6 @@ The added function doesn&#39;t affect any actual functionality. ([`bf71032`](htt
 - Modified run_command function to capture both output and error streams
 - Updated main function to correctly interpret semantic-release output
 - Improved error reporting and success detection ([`408b1b0`](https://github.com/mpazaryna/vidyabot/commit/408b1b0f7aff777b4bf5ce321244f0301c60c4df))
-
 
 ## v0.8.1 (2024-07-13)
 
@@ -83,13 +96,11 @@ The added function doesn&#39;t affect any actual functionality. ([`bf71032`](htt
 - Updated README.md to include instructions for running with dry run flag
 - Improved error handling and simulation of dry run in release script ([`7b6c01c`](https://github.com/mpazaryna/vidyabot/commit/7b6c01c257d95ae99507b50ce467bacb1b49ddb4))
 
-
 ## v0.8.0 (2024-07-12)
 
 ### Feature
 
 * feat: add test feature to verify semantic-release ([`c8110b2`](https://github.com/mpazaryna/vidyabot/commit/c8110b263cd661a028fb9b5b12c89cb36d9f4246))
-
 
 ## v0.7.0 (2024-07-12)
 
@@ -103,9 +114,7 @@ The added function doesn&#39;t affect any actual functionality. ([`bf71032`](htt
 
 This commit is to verify that semantic-release creates a new minor version. ([`e278a30`](https://github.com/mpazaryna/vidyabot/commit/e278a30172b37ecbf221452bc35fa7326e36d21f))
 
-
 ## v0.6.1 (2024-07-12)
-
 
 ## v0.6.0 (2024-07-12)
 
@@ -115,7 +124,6 @@ This commit is to verify that semantic-release creates a new minor version. ([`e
 
 This commit is to test if semantic-release correctly updates the version. ([`a57a46a`](https://github.com/mpazaryna/vidyabot/commit/a57a46aefdee45eb293935bd4b2a2679f2ea2ca3))
 
-
 ## v0.5.3 (2024-07-12)
 
 ### Fix
@@ -123,7 +131,6 @@ This commit is to test if semantic-release correctly updates the version. ([`a57
 * fix: force version update for testing
 
 This commit is to test if semantic-release correctly updates the version. ([`e6836a5`](https://github.com/mpazaryna/vidyabot/commit/e6836a5a5c6f502cad7e62014f9211d0601a4b4e))
-
 
 ## v0.5.2 (2024-07-12)
 
@@ -138,7 +145,6 @@ This commit is to test if semantic-release correctly updates the version. ([`e68
 ### Fix
 
 * fix: manually bump version to 0.5.1 ([`ea3a02a`](https://github.com/mpazaryna/vidyabot/commit/ea3a02a6f79869b4d9b0955692086297877bd1f5))
-
 
 ## v0.5.1 (2024-07-12)
 
@@ -165,7 +171,6 @@ This commit is to test if semantic-release correctly updates the version. ([`e68
 
 - Adjust semantic-release configuration to recognize chore commits
 - Ensure proper version bumping for maintenance tasks ([`6611366`](https://github.com/mpazaryna/vidyabot/commit/6611366fe8838c703aad0f7e2cabd54a78000893))
-
 
 ## v0.5.0 (2024-07-12)
 
@@ -281,7 +286,6 @@ providing a stable foundation for further development. ([`0297ee4`](https://gith
 
 feat(api): Implement user data retrieval and improve project structure #1 ([`67a0492`](https://github.com/mpazaryna/vidyabot/commit/67a0492cd42e7edc2ebbd5a68edd5ca49107e59d))
 
-
 ## v0.4.0 (2024-07-11)
 
 ### Build
@@ -340,7 +344,6 @@ This commit ensures the CLI code adheres to style guidelines. ([`e39b158`](https
 
 This commit aligns the test with the updated CLI functionality. ([`b36de6a`](https://github.com/mpazaryna/vidyabot/commit/b36de6a4ad493fd477fdc35ffd8880aebf0f7f6f))
 
-
 ## v0.3.0 (2024-07-11)
 
 ### Chore
@@ -363,8 +366,7 @@ This commit finalizes the configuration for the initial release and sets the sta
 
 This commit improves the hello world functionality with a version indicator. ([`dcf3e8e`](https://github.com/mpazaryna/vidyabot/commit/dcf3e8e615a8629e801e6c4c4ee935521803d33d))
 
-
-## v0.2.0 (2024-07-11)
+## v0.1.0 (2024-07-11)
 
 ### Build
 
