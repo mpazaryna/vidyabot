@@ -39,12 +39,26 @@ def main(dry_run=True):
     if error:
         print("semantic-release error output:", error)
 
+    # Check if semantic-release reported a new version
+    new_version_line = next(
+        (line for line in output.split("\n") if "The next version is:" in line), None
+    )
+    if new_version_line:
+        reported_new_version = new_version_line.split(":")[1].strip().rstrip("! 🚀")
+        print(f"semantic-release reported new version: {reported_new_version}")
+    else:
+        print("semantic-release did not report a new version.")
+
     new_version = get_version_from_toml()
     print(f"New version from pyproject.toml: {new_version}")
 
     if new_version != current_version:
         print(
             f"Version in pyproject.toml was updated from {current_version} to {new_version}."
+        )
+    elif new_version_line:
+        print(
+            f"Warning: semantic-release reported a new version ({reported_new_version}), but pyproject.toml was not updated. This may be due to a dry run."
         )
     else:
         print("Version in pyproject.toml was not changed.")
