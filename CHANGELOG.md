@@ -2,6 +2,18 @@
 
 
 
+## v0.8.3 (2024-07-13)
+
+### Fix
+
+* fix: handle split output from semantic-release in release script
+
+- Combined stdout and stderr when checking for successful release
+- Extract new version number from semantic-release output
+- Improved reporting of semantic-release output and errors
+- Added check for package version update after release ([`faab93a`](https://github.com/mpazaryna/vidyabot/commit/faab93ac9be78f79d9a3dabd0479fe8fe5709825))
+
+
 ## v0.8.2 (2024-07-13)
 
 ### Fix
