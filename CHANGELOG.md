@@ -2,6 +2,26 @@
 
 
 
+## v0.8.1 (2024-07-13)
+
+### Documentation
+
+* docs: update conventional commit docs ([`af2b00a`](https://github.com/mpazaryna/vidyabot/commit/af2b00a87217de1fb211d4fed1c8bb0084b9afec))
+
+* docs: add conventional commits cheat sheet
+
+- Create CONVENTIONAL_COMMITS.md with quick reference guide
+- Include commit types, structure, and best practices ([`c00b65a`](https://github.com/mpazaryna/vidyabot/commit/c00b65a54016c2d78e1f69414bd8d8f3fe449c4c))
+
+### Fix
+
+* fix: update release script and README for dry run functionality
+
+- Modified release.py to handle semantic-release without --dry-run option
+- Updated README.md to include instructions for running with dry run flag
+- Improved error handling and simulation of dry run in release script ([`7b6c01c`](https://github.com/mpazaryna/vidyabot/commit/7b6c01c257d95ae99507b50ce467bacb1b49ddb4))
+
+
 ## v0.8.0 (2024-07-12)
 
 ### Feature
