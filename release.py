@@ -57,12 +57,17 @@ def main(dry_run=True):
         result, error = run_command(command)
 
     print("Output:", result)
-    if error:
-        print("Error:", error)
+    print("Error output:", error)
 
-    if "The next version is:" in result:
+    combined_output = result + "\n" + error
+    if "The next version is:" in combined_output:
         print("semantic-release ran successfully.")
-    elif error:
+        # Extract the new version from the output
+        for line in combined_output.split("\n"):
+            if "The next version is:" in line:
+                new_version = line.split(":")[1].strip().rstrip("! 🚀")
+                print(f"New version detected: {new_version}")
+    else:
         print("Failed to run semantic-release. Exiting.")
         sys.exit(1)
 
@@ -70,10 +75,10 @@ def main(dry_run=True):
     print_file_content("pyproject.toml")
 
     try:
-        new_version = get_current_version()
-        print(f"New version: {new_version}")
+        package_version = get_current_version()
+        print(f"Package version after release: {package_version}")
 
-        if new_version != current_version:
+        if package_version != current_version:
             print("Version was updated.")
         else:
             print("No new version was created.")
