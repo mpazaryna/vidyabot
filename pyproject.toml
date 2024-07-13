@@ -6,11 +6,6 @@ authors = ["Matthew Pazaryna <mpazbot@gmail.com>"]
 readme = "README.md"
 packages = [{include = "api"}]
 
-[tool.poetry-dynamic-versioning]
-enable = true
-vcs = "git"
-style = "semver"
-
 [tool.poetry.dependencies]
 python = "^3.12"
 openai = "^1.3.0"
@@ -22,8 +17,8 @@ fastapi = "^0.109.0"
 uvicorn = "^0.15.0"
 pydantic = "^2.5.3"
 psutil = "^6.0.0"
-
 toml = "^0.10.2"
+
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
@@ -31,11 +26,10 @@ black = "^23.7.0"
 isort = "^5.12.0"
 flake8 = "^6.1.0"
 python-semantic-release = "^8.3.0"
-poetry-dynamic-versioning = "^1.4.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
-build-backend = "poetry_dynamic_versioning.backend"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 testpaths = ["api/tests"]
@@ -51,7 +45,6 @@ profile = "black"
 multi_line_output = 3
 
 [tool.semantic_release]
-version_variable = ["api/__init__.py:__version__"]
 version_toml = ["pyproject.toml:tool.poetry.version"]
 branch = "main"
 changelog_file = "CHANGELOG.md"
