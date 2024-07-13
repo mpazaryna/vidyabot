@@ -2,6 +2,17 @@
 
 
 
+## v0.8.2 (2024-07-13)
+
+### Fix
+
+* fix: improve semantic-release output handling in release script
+
+- Modified run_command function to capture both output and error streams
+- Updated main function to correctly interpret semantic-release output
+- Improved error reporting and success detection ([`408b1b0`](https://github.com/mpazaryna/vidyabot/commit/408b1b0f7aff777b4bf5ce321244f0301c60c4df))
+
+
 ## v0.8.1 (2024-07-13)
 
 ### Documentation
