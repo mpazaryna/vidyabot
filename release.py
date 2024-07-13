@@ -24,10 +24,7 @@ def run_command(command):
         command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True
     )
     output, error = process.communicate()
-    if error:
-        print(f"Error: {error.decode('utf-8')}")
-        return None
-    return output.decode("utf-8").strip()
+    return output.decode("utf-8").strip(), error.decode("utf-8").strip()
 
 
 def print_file_content(filepath):
@@ -54,13 +51,20 @@ def main(dry_run=True):
     if dry_run:
         print("Dry run: simulating semantic-release execution")
         result = "Dry run: Version would be determined based on commits"
+        error = None
     else:
         command = "semantic-release version"
-        result = run_command(command)
-        if result is None:
-            print("Failed to run semantic-release. Exiting.")
-            sys.exit(1)
-    print(result)
+        result, error = run_command(command)
+
+    print("Output:", result)
+    if error:
+        print("Error:", error)
+
+    if "The next version is:" in result:
+        print("semantic-release ran successfully.")
+    elif error:
+        print("Failed to run semantic-release. Exiting.")
+        sys.exit(1)
 
     print_file_content("api/__init__.py")
     print_file_content("pyproject.toml")
@@ -70,17 +74,13 @@ def main(dry_run=True):
         print(f"New version: {new_version}")
 
         if new_version != current_version:
-            print("Version would be updated." if dry_run else "Version was updated.")
+            print("Version was updated.")
         else:
-            print(
-                "No new version would be created."
-                if dry_run
-                else "No new version was created."
-            )
+            print("No new version was created.")
     except ValueError as e:
         print(f"Error: {e}")
 
-    print("Release process " + ("simulation " if dry_run else "") + "completed!")
+    print("Release process completed!")
 
 
 if __name__ == "__main__":
