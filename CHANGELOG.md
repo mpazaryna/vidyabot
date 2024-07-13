@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.9.2 (2024-07-13)
+
+### Fix
+
+* fix: remove cruft code
+
+These functions were created as part of testing the release process; they are cruft. ([`b8f5335`](https://github.com/mpazaryna/vidyabot/commit/b8f5335276cc74f68d78f16ca8def853f25b01cc))
+
 ## v0.9.1 (2024-07-13)
 
 ### Fix
