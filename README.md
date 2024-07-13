@@ -145,6 +145,10 @@ We use `python-semantic-release` to automatically generate changelogs and manage
    ```
    poetry run semantic-release --verbose version
    ```
+6. To perform a dry run release, run:
+   ```
+   poetry run python release.py --dry-run
+   ```
 
 This script will:
 - Determine the next version based on your commits
