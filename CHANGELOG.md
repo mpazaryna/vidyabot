@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## v0.10.0 (2024-07-13)
+
+### Breaking
+
+* feat: implement basic error handling in hello_world.py
+
+- Add try-except block in hello_world function
+- Return appropriate exit codes (0 for success, 1 for error)
+- Update tests to cover error handling scenarios
+- Add error handling information to README.md
+
+This commit improves the reliability of the CLI by adding basic
+error handling and reporting. It maintains existing functionality
+while providing better feedback in case of unexpected errors.
+
+BREAKING CHANGE: None ([`640c8f2`](https://github.com/mpazaryna/vidyabot/commit/640c8f29ff650caf7a8d35797949fd19cc76a688))
+
+### Unknown
+
+* Merge pull request #6 from mpazaryna/5-improve-error-handling
+
+feat: implement basic error handling in hello_world.py ([`ad6cd1c`](https://github.com/mpazaryna/vidyabot/commit/ad6cd1cd35987a863c03ed18fd645bf715e4c773))
+
 ## v0.9.2 (2024-07-13)
 
 ### Fix
