@@ -2,6 +2,45 @@
 
 
 
+## v0.9.0 (2024-07-13)
+
+### Breaking
+
+* fix: update versioning to use toml file only
+
+This commit updates the semantic-release configuration to use only
+the toml file for versioning. It also updates the release script
+to read and report versions from the toml file correctly.
+
+BREAKING CHANGE: The versioning system has been changed to rely
+solely on the pyproject.toml file, which may affect how versions
+are determined and updated. ([`5b7b2b1`](https://github.com/mpazaryna/vidyabot/commit/5b7b2b13477424474172bc742bf586ca3ed6234b))
+
+### Feature
+
+* feat: add force release helper function
+
+slight modification to force new version on release. ([`30eb26e`](https://github.com/mpazaryna/vidyabot/commit/30eb26ee80b1cd06a97a5759bc7faaa7e7f1358b))
+
+* feat: add force release helper function
+
+This commit is intended to trigger a new minor version release.
+The added function doesn&#39;t affect any actual functionality. ([`bf71032`](https://github.com/mpazaryna/vidyabot/commit/bf710327ce1e7cd96b1db75556907673cb6776f4))
+
+### Fix
+
+* fix: update with method to retest
+
+- added a new method, previous commit did not trigger a release. ([`36dd72b`](https://github.com/mpazaryna/vidyabot/commit/36dd72b22acc0ebbd3a88a2d5df7916b37c3d120))
+
+* fix: simplify and improve debugging in release script
+
+- Removed references to api directory
+- Focused solely on version in pyproject.toml
+- Added more detailed semantic-release output
+- Improved version change detection and reporting ([`70f433c`](https://github.com/mpazaryna/vidyabot/commit/70f433cc57628cc146c08d060eea5460faaec31d))
+
+
 ## v0.8.3 (2024-07-13)
 
 ### Fix
