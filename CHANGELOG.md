@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.11.0 (2024-07-16)
+
+### Feature
+
+* feat: integrate LangChain service and resolve deprecation warnings
+
+- Add LangChainService for text generation, summarization, and translation
+- Create /generate_response endpoint in FastAPI app
+- Update to langchain-openai and use RunnableSequence pattern
+- Implement comprehensive logging to server.log
+- Resolve OpenAI and LLMChain deprecation warnings ([`4a95e83`](https://github.com/mpazaryna/vidyabot/commit/4a95e8349369ed1954abe6cc634181d5fcde6b8d))
+
+### Unknown
+
+* Merge pull request #8 from mpazaryna/7-create-langchain_service-class
+
+feat: integrate LangChain service and resolve deprecation warnings ([`384f159`](https://github.com/mpazaryna/vidyabot/commit/384f159e32e3996ede2d21b616718c56f10d5537))
+
 ## v0.10.0 (2024-07-13)
 
 ### Breaking
