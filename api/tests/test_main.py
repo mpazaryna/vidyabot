@@ -1,6 +1,6 @@
 # File: api/tests/test_main.py
-
 import json
+import os
 from unittest.mock import mock_open, patch
 
 import pytest
@@ -73,3 +73,17 @@ def test_other_routes(test_input, expected):
     """Test other routes including auto-generated docs and nonexistent routes."""
     response = client.get(test_input)
     assert response.status_code == expected
+
+
+def test_generate_response():
+    # Skip this test if OPENAI_API_KEY is not set
+    if not os.getenv("OPENAI_API_KEY"):
+        import pytest
+
+        pytest.skip("OPENAI_API_KEY not set")
+
+    response = client.post("/generate_response", json={"text": "What is yoga?"})
+    assert response.status_code == 200
+    assert "response" in response.json()
+    assert isinstance(response.json()["response"], str)
+    assert len(response.json()["response"]) > 10
