@@ -1,12 +1,11 @@
 import logging
-import os
 from functools import lru_cache
 
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 
 from .data.user_data import get_user_data
-from .langchain.langchain_service import LangChainService
+from .langchain.langchain_service import LangChainService, get_langchain_service
 
 # Configure logging
 logging.basicConfig(
@@ -26,12 +25,12 @@ class Query(BaseModel):
 
 
 @lru_cache()
-def get_langchain_service():
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        logging.error("OpenAI API key not found")
-        raise HTTPException(status_code=500, detail="OpenAI API key not found")
-    return LangChainService(api_key)
+def get_cached_langchain_service():
+    try:
+        return get_langchain_service()  # This will use the default 'config.yaml'
+    except Exception as e:
+        logging.error(f"Error initializing LangChainService: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error initializing LLM service")
 
 
 @app.get("/users")
@@ -66,7 +65,7 @@ async def read_root():
 
 @app.post("/generate_response")
 async def generate_response(
-    query: Query, service: LangChainService = Depends(get_langchain_service)
+    query: Query, service: LangChainService = Depends(get_cached_langchain_service)
 ):
     prompt = "You are a helpful assistant. Respond to the following: {input}"
     try:
