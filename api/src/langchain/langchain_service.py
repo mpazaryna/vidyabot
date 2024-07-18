@@ -25,6 +25,9 @@ class LangChainService:
             return yaml.safe_load(file)
 
     async def initialize_llm(self):
+        if self.llm is not None:
+            return
+
         llm_type = self.config["llm"]["default"]
         logger.debug(f"Initializing LLM of type: {llm_type}")
 
@@ -70,8 +73,7 @@ class LangChainService:
         )
 
     async def generate_response(self, prompt, input_text):
-        if self.llm is None:
-            await self.initialize_llm()
+        await self.initialize_llm()
 
         logger.debug(f"Generating response for input: {input_text[:50]}...")
         chain = self.create_chain(prompt)
@@ -94,8 +96,7 @@ class LangChainService:
         return content
 
     async def summarize_text(self, text):
-        if self.llm is None:
-            await self.initialize_llm()
+        await self.initialize_llm()
 
         summary_prompt = PromptTemplate(
             input_variables=["text"],
@@ -105,14 +106,14 @@ class LangChainService:
         chain = summary_prompt | self.llm
 
         try:
-            return await chain.ainvoke({"text": text})
+            response = await chain.ainvoke({"text": text})
+            return response if isinstance(response, str) else str(response)
         except Exception as e:
-            logging.exception("Error in summarize_text")
+            logger.exception("Error in summarize_text")
             raise
 
     async def answer_question(self, question, context):
-        if self.llm is None:
-            await self.initialize_llm()
+        await self.initialize_llm()
 
         qa_prompt = PromptTemplate(
             input_variables=["context", "question"],
@@ -122,14 +123,14 @@ class LangChainService:
         chain = qa_prompt | self.llm
 
         try:
-            return await chain.ainvoke({"context": context, "question": question})
+            response = await chain.ainvoke({"context": context, "question": question})
+            return response if isinstance(response, str) else str(response)
         except Exception as e:
-            logging.exception("Error in answer_question")
+            logger.exception("Error in answer_question")
             raise
 
     async def translate_text(self, text, target_language):
-        if self.llm is None:
-            await self.initialize_llm()
+        await self.initialize_llm()
 
         translation_prompt = PromptTemplate(
             input_variables=["target_language", "text"],
@@ -139,11 +140,12 @@ class LangChainService:
         chain = translation_prompt | self.llm
 
         try:
-            return await chain.ainvoke(
+            response = await chain.ainvoke(
                 {"target_language": target_language, "text": text}
             )
+            return response if isinstance(response, str) else str(response)
         except Exception as e:
-            logging.exception("Error in translate_text")
+            logger.exception("Error in translate_text")
             raise
 
 
