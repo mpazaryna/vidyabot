@@ -26,6 +26,7 @@ This document outlines potential improvements and next steps for our server mana
 - [ ] Expand API endpoints in `api/src/main.py`
 - [ ] Implement input validation for all endpoints
 - [ ] Add authentication and authorization mechanisms
+- [ ] Add ability to toggle LLM in langchain_service.py [#9](https://github.com/mpazaryna/vidyabot/issues/9)
 
 ## 6. Documentation
 - [ ] Create a comprehensive README.md with setup and usage instructions
@@ -57,4 +58,3 @@ This document outlines potential improvements and next steps for our server mana
 2. Add notes or links to relevant commits/pull requests under each item as you complete them.
 3. Regularly review and update this document to reflect the current state of the project.
 4. Consider converting these items into GitHub issues when you're ready to track them more formally.
-

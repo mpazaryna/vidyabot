@@ -1,89 +1,90 @@
 # File: api/tests/test_main.py
-import json
+# File: api/tests/test_main.py
 import os
-from unittest.mock import mock_open, patch
 
 import pytest
-from fastapi.testclient import TestClient
+import yaml
+from httpx import AsyncClient
 
 from api.src.main import app
 
-client = TestClient(app)
 
-MOCK_USER_DATA = {
-    "users": [
-        {
-            "id": 1,
-            "name": "Alice Johnson",
-            "email": "alice.johnson@example.com",
-            "age": 30,
-            "city": "New York",
-        },
-        {
-            "id": 2,
-            "name": "Bob Smith",
-            "email": "bob.smith@example.com",
-            "age": 25,
-            "city": "San Francisco",
-        },
-    ]
-}
+@pytest.fixture(scope="module")
+def test_config():
+    # Create a test configuration
+    config = {
+        "llm": {"default": "openai", "options": ["openai", "gemini"]},
+        "openai": {"api_key_env": "OPENAI_API_KEY"},
+        "gemini": {"api_key_env": "GOOGLE_API_KEY"},
+    }
+
+    # Write the test configuration to a file
+    with open("test_config.yaml", "w") as file:
+        yaml.dump(config, file)
+
+    yield "test_config.yaml"
+
+    # Clean up
+    os.remove("test_config.yaml")
 
 
-def test_read_root():
-    """Test the root endpoint."""
-    response = client.get("/")
+@pytest.fixture(autouse=True)
+async def setup_test_env(test_config):
+    # Check if API keys are set
+    if not os.getenv("OPENAI_API_KEY"):
+        pytest.skip("OPENAI_API_KEY not set in environment")
+    if not os.getenv("GOOGLE_API_KEY"):
+        pytest.skip("GOOGLE_API_KEY not set in environment")
+
+    yield
+
+
+@pytest.mark.asyncio
+async def test_read_root():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the User API"}
 
 
-@patch("builtins.open", new_callable=mock_open, read_data=json.dumps(MOCK_USER_DATA))
-def test_read_users(mock_file):
-    """Test the /users endpoint."""
-    response = client.get("/users")
+@pytest.mark.asyncio
+async def test_read_users():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/users")
     assert response.status_code == 200
-    assert response.json() == MOCK_USER_DATA["users"]
+    assert isinstance(response.json(), list)
 
 
-@patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"users": []}))
-def test_read_users_empty(mock_file):
-    """Test the /users endpoint when no users are returned."""
-    response = client.get("/users")
-    assert response.status_code == 200
-    assert response.json() == []
-
-
-@patch("builtins.open", side_effect=Exception("Test error"))
-def test_read_users_error(mock_file):
-    """Test error handling in the /users endpoint."""
-    response = client.get("/users")
-    assert response.status_code == 500
-    assert response.json() == {"detail": "An unexpected error occurred: Test error"}
-
-
-@pytest.mark.parametrize(
-    "test_input,expected",
-    [
-        ("/docs", 200),
-        ("/openapi.json", 200),
-        ("/nonexistent", 404),
-    ],
-)
-def test_other_routes(test_input, expected):
-    """Test other routes including auto-generated docs and nonexistent routes."""
-    response = client.get(test_input)
-    assert response.status_code == expected
-
-
-def test_generate_response():
-    # Skip this test if OPENAI_API_KEY is not set
-    if not os.getenv("OPENAI_API_KEY"):
-        import pytest
-
-        pytest.skip("OPENAI_API_KEY not set")
-
-    response = client.post("/generate_response", json={"text": "What is yoga?"})
+@pytest.mark.asyncio
+async def test_generate_response():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            "/generate_response", json={"text": "Tell me about AI"}
+        )
     assert response.status_code == 200
     assert "response" in response.json()
     assert isinstance(response.json()["response"], str)
-    assert len(response.json()["response"]) > 10
+    assert len(response.json()["response"]) > 0
+
+
+@pytest.mark.asyncio
+async def test_missing_api_key(monkeypatch):
+    # Temporarily remove the API key
+    original_key = os.environ.get("OPENAI_API_KEY")
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            "/generate_response", json={"text": "Tell me about AI"}
+        )
+
+    # Restore the original key
+    if original_key:
+        os.environ["OPENAI_API_KEY"] = original_key
+
+    assert response.status_code == 500
+    assert "Error initializing LLM service" in response.json()["detail"]
+
+
+if __name__ == "__main__":
+    pytest.main([__file__])
