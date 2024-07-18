@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## [v0.12.0] - 2024-07-18 16:44:14 -0400
+
+### Features
+- initial commit llm configuration ([`2bc14b7`](https://github.com/mpazaryna/vidyabot/commit/2bc14b7d9a73663c14b179f8a6166f25d4280da3))
+
+### Bug Fixes
+- docs folder needs to be in the root ([`1b84434`](https://github.com/mpazaryna/vidyabot/commit/1b844347bda778b2bf9014d7bbf7e60c6c0d06f0))
+
+### Documentation
+- add link to ticket in future_improvements ([`819bace`](https://github.com/mpazaryna/vidyabot/commit/819bace36757532d05dcc67db264861633c3c5f4))
+- create docs subfolder ([`688098f`](https://github.com/mpazaryna/vidyabot/commit/688098f5ecf4a2a0a6c26c9c301f0156b43b21e3))
+
+### Chores
+- multiple updates to resolve async testing issues ([`665b876`](https://github.com/mpazaryna/vidyabot/commit/665b876e6152136069cda061afe4f75b65b5e688))
+- temporarily skip langchain_service tests ([`4fc094f`](https://github.com/mpazaryna/vidyabot/commit/4fc094f95f383b5e7eb1c87ce07fd8d11e706f08))
+
 ## v0.11.0 (2024-07-16)
 
 ### Feature
