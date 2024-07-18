@@ -4,18 +4,15 @@ from functools import lru_cache
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
 
+from api.src.langchain.langchain_service import get_langchain_service
+
 from .data.user_data import get_user_data
-from .langchain.langchain_service import LangChainService, get_langchain_service
 
-# Configure logging
+# Set up logging
 logging.basicConfig(
-    filename="server.log",
-    level=logging.WARNING,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-
-# Capture warnings and redirect them to the log
-logging.captureWarnings(True)
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -24,13 +21,39 @@ class Query(BaseModel):
     text: str
 
 
-@lru_cache()
-def get_cached_langchain_service():
+async def get_langchain_service_dependency():
     try:
-        return get_langchain_service()  # This will use the default 'config.yaml'
+        logger.debug("Attempting to initialize LangChainService")
+        service = await get_langchain_service()
+        logger.debug(
+            f"LangChainService initialized successfully. Using LLM: {service.config['llm']['default']}"
+        )
+        return service
     except Exception as e:
-        logging.error(f"Error initializing LangChainService: {str(e)}")
-        raise HTTPException(status_code=500, detail="Error initializing LLM service")
+        logger.exception("Error initializing LangChainService")
+        logger.error(f"Error details: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error initializing LLM service: {str(e)}"
+        )
+
+
+@app.post("/generate_response")
+async def generate_response(
+    query: Query, service=Depends(get_langchain_service_dependency)
+):
+    prompt = "You are a helpful assistant. Respond to the following: {input}"
+    logger.debug(f"Received query: {query.text[:50]}...")
+    logger.debug(f"Using LLM: {service.config['llm']['default']}")
+
+    try:
+        logger.debug("Calling service.generate_response")
+        response = await service.generate_response(prompt, query.text)
+        logger.info(f"Generated response for query: {query.text[:50]}...")
+        logger.debug(f"Full response: {response}")
+        return {"response": response}
+    except Exception as e:
+        logger.exception(f"Error generating response for query: {query.text[:50]}...")
+        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 
 @app.get("/users")
@@ -61,20 +84,6 @@ async def read_root():
         dict: A welcome message.
     """
     return {"message": "Welcome to the User API"}
-
-
-@app.post("/generate_response")
-async def generate_response(
-    query: Query, service: LangChainService = Depends(get_cached_langchain_service)
-):
-    prompt = "You are a helpful assistant. Respond to the following: {input}"
-    try:
-        response = service.generate_response(prompt, query.text)
-        logging.info(f"Generated response for query: {query.text[:50]}...")
-        return {"response": response}
-    except Exception as e:
-        logging.exception(f"Error generating response for query: {query.text[:50]}...")
-        raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
 
 if __name__ == "__main__":

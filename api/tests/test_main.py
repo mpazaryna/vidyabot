@@ -1,13 +1,13 @@
 # File: api/tests/test_main.py
+# File: api/tests/test_main.py
 import os
 
 import pytest
 import yaml
 from fastapi.testclient import TestClient
+from httpx import AsyncClient
 
-from api.src.main import app, get_cached_langchain_service
-
-client = TestClient(app)
+from api.src.main import app, get_langchain_service_dependency
 
 
 @pytest.fixture(scope="module")
@@ -30,10 +30,7 @@ def test_config():
 
 
 @pytest.fixture(autouse=True)
-def setup_test_env(test_config):
-    # Clear the lru_cache for get_cached_langchain_service
-    get_cached_langchain_service.cache_clear()
-
+async def setup_test_env(test_config):
     # Check if API keys are set
     if not os.getenv("OPENAI_API_KEY"):
         pytest.skip("OPENAI_API_KEY not set in environment")
@@ -42,42 +39,49 @@ def setup_test_env(test_config):
 
     yield
 
-    # Clear the cache again after the test
-    get_cached_langchain_service.cache_clear()
 
-
-def test_read_root():
-    response = client.get("/")
+@pytest.mark.asyncio
+async def test_read_root():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the User API"}
 
 
-def test_read_users():
-    response = client.get("/users")
+@pytest.mark.asyncio
+async def test_read_users():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/users")
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
 
-def test_generate_response():
-    response = client.post("/generate_response", json={"text": "Tell me about AI"})
+@pytest.mark.asyncio
+async def test_generate_response():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            "/generate_response", json={"text": "Tell me about AI"}
+        )
     assert response.status_code == 200
     assert "response" in response.json()
     assert isinstance(response.json()["response"], str)
     assert len(response.json()["response"]) > 0
 
 
-def test_missing_api_key(monkeypatch):
+@pytest.mark.asyncio
+async def test_missing_api_key(monkeypatch):
     # Temporarily remove the API key
     original_key = os.environ.get("OPENAI_API_KEY")
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    get_cached_langchain_service.cache_clear()
 
-    response = client.post("/generate_response", json={"text": "Tell me about AI"})
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.post(
+            "/generate_response", json={"text": "Tell me about AI"}
+        )
 
     # Restore the original key
     if original_key:
         os.environ["OPENAI_API_KEY"] = original_key
-    get_cached_langchain_service.cache_clear()
 
     assert response.status_code == 500
     assert "Error initializing LLM service" in response.json()["detail"]
