@@ -4,10 +4,9 @@ import os
 
 import pytest
 import yaml
-from fastapi.testclient import TestClient
 from httpx import AsyncClient
 
-from api.src.main import app, get_langchain_service_dependency
+from api.src.main import app
 
 
 @pytest.fixture(scope="module")
