@@ -1,9 +1,9 @@
 import logging
 
+# from api.src.langchain.langchain_service import get_langchain_service
+from aiforge.langchain.langchain_service import get_langchain_service
 from fastapi import Depends, FastAPI, HTTPException
 from pydantic import BaseModel
-
-from api.src.langchain.langchain_service import get_langchain_service
 
 from .data.user_data import get_user_data
 
